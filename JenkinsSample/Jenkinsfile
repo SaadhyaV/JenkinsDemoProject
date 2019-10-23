@@ -16,13 +16,15 @@ pipeline {
         	echo 'Deploying..'
         	}
         }
-        stage('Jarfile'){
+        stage('Deploy'){
         	steps{
-	        	echo 'jar file generated'	
-	        	dir('build'){
-	        		bat 'ant generatejarfile'
-	        	}
+	        	echo 'jar file generated'
+	        	 dir ('build') {
+                    bat 'ant'
+                }
+	        	
         	}
         }
+        
      }
 }
