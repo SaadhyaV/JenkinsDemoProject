@@ -18,8 +18,10 @@ pipeline {
         }
         stage('Jarfile'){
         	steps{
-        	echo 'jar file generated'	
-        	bat 'ant generatejarfile'
+	        	echo 'jar file generated'	
+	        	dir('build'){
+	        		bat 'ant generatejarfile'
+	        	}
         	}
         }
      }
