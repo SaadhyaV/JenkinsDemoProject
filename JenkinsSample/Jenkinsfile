@@ -16,7 +16,7 @@ pipeline {
         	echo 'Deploying..'
         	}
         }
-        stage('Deploy'){
+        stage('Jarfile'){
         	steps{
 	        	echo 'jar file generated'
 	        	 dir ('build') {
