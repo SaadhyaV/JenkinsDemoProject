@@ -3,7 +3,8 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="JenkinsSample">
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="generatejarfile" name="JenkinsSample">
     <property environment="env"/>
     <property name="ECLIPSE_HOME" value="../../../Downloads/eclipse-jee-oxygen-3a-win32-x86_64/eclipse/"/>
     <property name="debuglevel" value="source,lines,vars"/>
@@ -15,7 +16,7 @@
         <pathelement location="target/test-classes"/>
         <path refid="Maven Dependencies.libraryclasspath"/>
     </path>
-    <target name="init">
+    <target name="init" depends="clean">
         <mkdir dir="target/classes"/>
         <mkdir dir="target/test-classes"/>
         <copy includeemptydirs="false" todir="target/classes">
@@ -49,10 +50,10 @@
         <delete dir="target/classes"/>
         <delete dir="target/test-classes"/>
     </target>
-    <target depends="clean" name="cleanall"/>
-    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="cleanall" depends="clean" />
+    <target name="build" depends="build-subprojects,build-project" />
     <target name="build-subprojects"/>
-    <target depends="init" name="build-project">
+    <target  name="build-project" depends="init" >
         <echo message="${ant.project.name}: ${ant.file}"/>
         <javac debug="true" debuglevel="${debuglevel}" destdir="target/classes" includeantruntime="false" source="${source}" target="${target}">
             <src path="src/main/java"/>
@@ -81,4 +82,15 @@
         <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
         <antcall target="build"/>
     </target>
+              	
+     <target name="generatejarfile" depends="build-project" description="generate the distribution">
+        <buildnumber />
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}/lib" />
+ 
+        <!-- Put everything in ${build} into the MyApplication-${version}.${build.number}.jar -->
+        <jar destfile="${dist}/lib/MyApplication.jar" basedir="target/classes" />
+        
+    </target>	
+              	
 </project>
