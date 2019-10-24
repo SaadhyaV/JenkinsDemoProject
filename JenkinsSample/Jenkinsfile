@@ -1,25 +1,21 @@
 pipeline {
     agent any
+    
+    tools {
+       jdk "javaJdk"
+       }
     stages {
         stage('Build') {
             steps {
-            echo 'Hello user' 
+            echo 'Hello user'
+            dir ('JenkinsSample'){
+            bat 'ant build'
             }
         }
-        stage('Test'){
-        	steps{
-        	echo 'Testing..'
-        	}
-        }
-        stage('Deploy'){
-        	steps{
-        	echo 'Deploying..'
-        	}
         }
         stage('Jarfile'){
         	steps{
 	        	echo 'jar file generated'
-	        	
 	        	 	bat 'ant generatejarfile'
                 }
         }
