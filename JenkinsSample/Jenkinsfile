@@ -19,10 +19,9 @@ pipeline {
         stage('Jarfile'){
         	steps{
 	        	echo 'jar file generated'
-	        	 dir ('build') {
-	        	 	bat 'ant JenkinsSample/build.xml'
+	        	
+	        	 	bat 'ant generatejarfile'
                 }
-        	}
         }
         
      }
