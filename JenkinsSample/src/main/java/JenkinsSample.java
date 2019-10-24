@@ -1,4 +1,4 @@
-package com.sample.jenkins;
+
 
 public class JenkinsSample {
 
