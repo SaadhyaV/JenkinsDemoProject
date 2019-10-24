@@ -16,13 +16,21 @@ pipeline {
         	echo 'Deploying..'
         	}
         }
-        
         stage('Jarfile'){
         	steps{
-        		ant{
-        			target('generatejarfile')
-        		}
+	        	echo 'jar file generated'
+	        	 dir ('build') {
+	        	 	filename 'build.xml'
+	        	    bat 'ant build.xml'
+                }
         	}
+        }
+         stage('Example Test') {
+            agent { docker 'openjdk:8-jre' } 
+            steps {
+                echo 'Hello, JDK'
+                bat 'java -version'
+            }
         }
         
      }
